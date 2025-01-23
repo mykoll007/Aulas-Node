@@ -13,6 +13,25 @@ class TaskController {
             console.log(error)
         })
     }
+
+    listarTarefas(request, response){
+        database.select("*").table("tasks").then(tarefas => {
+            response.json(tarefas)
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+
+
+    listarUmaTarefa(request, response){
+        const id = request.params.id
+
+        database.select("*").table("tasks").where({id: id}).then(tarefa => {
+            response.json(tarefa)
+        }).catch(error => {
+            console.log(error)
+        })
+    }
 }
 
 module.exports = new TaskController()
