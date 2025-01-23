@@ -10,5 +10,7 @@ router.get('/users', (request, response) => {
 router.post('/novaTarefa', TaskController.novaTarefa)
 router.get('/tarefas', TaskController.listarTarefas)
 router.get('/tarefa/:id', TaskController.listarUmaTarefa)
+router.put('/atualizar/tarefa/:id', TaskController.atualizarTarefa)
+
 
 module.exports = router
