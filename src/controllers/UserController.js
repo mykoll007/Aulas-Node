@@ -24,11 +24,11 @@ class UserController{
                 response.status(401).json({message: "Autenticação Falhou !"})
 
             const validarSenha = await bcrypt.compare(senha, usuario[0].senha)
-            
+
             if(!validarSenha)
                 response.status(401).json({message: "Autenticação falhou !"})
 
-            const token = jwt.sign({id: usuario[0].id}, 'Titos@2025 !', {
+            const token = jwt.sign({id: usuario[0].id}, 'Titos@2025!', {
                 expiresIn: '1h'
             })
             response.status(200).json({token})
