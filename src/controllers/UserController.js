@@ -4,13 +4,13 @@ const jwt = require('jsonwebtoken')
 
 class UserController{
 
-   async cadastrarUsuario(request, response){
-        const {nome, email, senha, situacao} = request.body
-
+  async cadastrarUsuario(request, response) {
+        const { nome, email, senha, situacao } = request.body
+ 
         const senhaSegura = await bcrypt.hash(senha, 10)
-
-        database.insert({nome, email,senha: senhaSegura, situacao}).table("users").then(data=>{
-            response.json({message: "Usuário cadastrado com sucesso !"})
+ 
+        database.insert({ nome, email, senha: senhaSegura, situacao }).table("users").then(data => {
+            response.json({ message: "Usuario cadastrado com sucesso !" })
         }).catch(error => {
             console.log(error)
         })
@@ -37,6 +37,44 @@ class UserController{
             console.log(error)
         })
     }
+    listarUsuarios(request, response) {
+        database.select('*').table('users').then(usuarios => {
+            response.status(200).json({ usuarios })
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+ 
+    listarUmUsuario(request, response) {
+        const { id } = request.params
+ 
+        database.where({ id: id }).select('*').table('users').then(usuario => {
+            response.status(200).json({ usuario })
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+ 
+    atualizarUsuario(request, response) {
+        const {id} = request.params
+        const {email, nome} = request.body
+ 
+        database.where({id: id}).update({nome: nome, email: email}).table('users').then(usuario=>{
+            response.status(200).json({message:"Usuario atualizado com sucesso !"})
+        }).catch(error=>{
+            console.log(error)
+        })
+     }
+
+     removerUsuario(request, response){
+        const {id} = request.params
+
+        database.where({id: id}).del().table('users').then(usuario => {
+            response.status(200).json({message: "Usuario deletado com sucesso!"})
+        }).catch(error => {
+            console.log(error)
+        })
+     }
 }
 
 module.exports = new UserController()
