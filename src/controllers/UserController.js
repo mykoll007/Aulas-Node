@@ -75,6 +75,18 @@ class UserController{
             console.log(error)
         })
      }
+     async redefinirSenha(request, response){
+        const {id} = request.params
+        const {senha} = request.body
+ 
+        const senhaSegura = await bcrypt.hash(senha, 10)
+ 
+        database.where({id: id}).update({senha: senhaSegura}).table('users').then(usuario =>{
+            response.json({message: "Senha atualizada com sucesso!"})
+        }).catch(error => {
+            console.log(error)
+        })
+     }
 }
 
 module.exports = new UserController()

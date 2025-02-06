@@ -26,6 +26,8 @@ router.get('/usuarios',verificarToken, UserController.listarUsuarios)
 router.get('/usuario/:id', UserController.listarUmUsuario)
 router.put('/usuarios/atualizar/:id', verificarToken, UserController.atualizarUsuario)
 router.delete('/usuario/delete/:id', UserController.removerUsuario)
+router.put('/usuario/redefinirSenha/:id', UserController.redefinirSenha)
+ 
 
 //Rota do TwoFaController
 router.get('/2fa/gerar', TwoFaController.gerarToken)
