@@ -6,7 +6,7 @@ class TwoFaController {
     gerarToken(request, response){
         const secret = speakeasy.generateSecret();
         qrcode.toDataURL(secret.otpauth_url, (err, data_url) => {
-            response.json({token: secret.base32, qr_code: data_url})
+            response.status(200).json({token: secret.base32, qr_code: data_url})
         })
     }
 
@@ -20,7 +20,7 @@ class TwoFaController {
             window: 3
         })
 
-        response.json({verificacao})
+        response.status(200).json({verificacao})
     }
 }
 
