@@ -5,6 +5,7 @@ const TaskController = require('../controllers/TaskController')
 const UserController = require ('../controllers/UserController')
 const verificarToken = require ('../middleware/authMiddleware');
 const TwoFaController = require('../controllers/TwoFaController');
+const PaymentController = require('../controllers/PaymentController');
 
 
 router.post('/usuario/autenticar', UserController.autenticarUsuario)
@@ -32,6 +33,9 @@ router.put('/usuario/redefinirSenha/:id', UserController.redefinirSenha)
 //Rota do TwoFaController
 router.get('/2fa/gerar', TwoFaController.gerarToken)
 router.post('/2fa/validar',TwoFaController.validarToken)
+
+//Rota do PaymentController
+router.post('/pagamento', verificarToken, PaymentController.processarPagamento)
 
 
 
